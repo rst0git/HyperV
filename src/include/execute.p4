@@ -16,34 +16,14 @@
 #ifndef HYPERVISOR_EXECUTE
 #define HYPERVISOR_EXECUTE
 
-
-//----------------- execute ------------------------
-
-//------------------ stage 1 -----------------------
-EXECUTE_ACTION(stage1)															
-
-//------------------ stage 2 -----------------------
+EXECUTE_ACTION(stage1)
 EXECUTE_ACTION(stage2)
-
-//------------------ stage 3 -----------------------
 EXECUTE_ACTION(stage3)
-
-//------------------ stage 4 -----------------------
 EXECUTE_ACTION(stage4)
-
-//------------------ stage 5 -----------------------
-EXECUTE_ACTION(stage5)															
-
-//------------------ stage 6 -----------------------
+EXECUTE_ACTION(stage5)
 EXECUTE_ACTION(stage6)
-
-//------------------ stage 7 -----------------------
 EXECUTE_ACTION(stage7)
-
-//------------------ stage 8 -----------------------
 EXECUTE_ACTION(stage8)
-
-//------------------ stage 8 -----------------------
 EXECUTE_ACTION(stage9)
 
 #endif

@@ -18,8 +18,6 @@
 
 #include "config.p4"
 
-
-
 /****************************************************
  * Metadata instances
  ***************************************************/
@@ -27,15 +25,15 @@
 /****************************************************
  * Field list for resubmit and recirculate
  ***************************************************/
-field_list flInstance_with_umeta { 
-    vdp_metadata;
-    user_metadata;
-    standard_metadata; 
+field_list flInstance_with_umeta {
+	vdp_metadata;
+	user_metadata;
+	standard_metadata;
 }
 
 field_list digest_list {
-    META;
-    standard_metadata;
+	META;
+	standard_metadata;
 }
 
 field_list watch_digist_list {
@@ -46,6 +44,5 @@ field_list debug_digist_list {
 	USER_META;
 	LOAD_HEADER;
 }
-
 
 #endif

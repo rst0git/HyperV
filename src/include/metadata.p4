@@ -23,21 +23,21 @@
 header_type vdp_metadata_t {
 	fields {
 		// Identifiers
-		vdp_id     : 16; 
-		inst_id    : 8 ;
-		stage_id   : 8 ;
+		vdp_id: 16;
+		inst_id: 8;
+		stage_id: 8;
 
 		// Action block variables
-		action_chain_id		: 48; 
-		action_chain_bitmap : 48;
-		
-		// Match block variable
-		match_chain_result  : 48;
-		match_chain_bitmap  : 3 ;
+		action_chain_id: 48;
+		action_chain_bitmap: 48;
 
-		recirculation_flag    : 1 ;      
-		remove_or_add_flag  : 1 ;
-		mod_flag			: 1 ;
+		// Match block variable
+		match_chain_result: 48;
+		match_chain_bitmap: 3;
+
+		recirculation_flag: 1;
+		remove_or_add_flag: 1;
+		mod_flag: 1;
 	}
 }
 
@@ -49,8 +49,8 @@ metadata vdp_metadata_t vdp_metadata;
  ***************************************************/
 header_type user_metadata_t {
 	fields {
-		meta : 256;
-		load_header  : 800;
+		meta: 256;
+		load_header: 800;
 	}
 }
 
@@ -63,17 +63,17 @@ metadata user_metadata_t user_metadata;
  ***************************************************/
 header_type context_metadata_t {
 	fields {
-		r1 : 16;
-		r2 : 16;
-		r3 : 16;
-		r4 : 16;
-		r5 : 32;
-		op          : 2  ;
-		left_expr   : 16 ;
-		right_expr  : 16 ;
-		count 	    : 32 ;
-		hash        : 32 ;
-		hash_header : 800;
+		r1: 16;
+		r2: 16;
+		r3: 16;
+		r4: 16;
+		r5: 32;
+		op: 2 ;
+		left_expr: 16;
+		right_expr: 16;
+		count 	: 32;
+		hash: 32;
+		hash_header: 800;
 	}
 }
 

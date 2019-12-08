@@ -1,24 +1,24 @@
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
 header_type ipv4_t {
     fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
+        version: 4;
+        ihl: 4;
+        diffserv: 8;
+        totalLen: 16;
+        identification: 16;
+        flags: 3;
+        fragOffset: 13;
+        ttl: 8;
+        protocol: 8;
+        hdrChecksum: 16;
+        srcAddr: 32;
         dstAddr: 32;
     }
 }
@@ -34,7 +34,7 @@ header ethernet_t ethernet;
 parser parse_ethernet {
     extract(ethernet);
     return select(latest.etherType) {
-        ETHERTYPE_IPV4 : parse_ipv4;
+        ETHERTYPE_IPV4: parse_ipv4;
         default: ingress;
     }
 }
@@ -59,8 +59,8 @@ field_list_calculation ipv4_checksum {
     input {
         ipv4_checksum_list;
     }
-    algorithm : csum16;
-    output_width : 16;
+    algorithm: csum16;
+    output_width: 16;
 }
 
 calculated_field ipv4.hdrChecksum  {
@@ -80,7 +80,7 @@ action _drop() {
 
 header_type routing_metadata_t {
     fields {
-        nhop_ipv4 : 32;
+        nhop_ipv4: 32;
     }
 }
 
@@ -93,7 +93,7 @@ action set_nhop(nhop_ipv4) {
 
 table ipv4_nhop {
     reads {
-        ipv4.dstAddr : exact;
+        ipv4.dstAddr: exact;
     }
     actions {
         set_nhop;
@@ -109,7 +109,7 @@ action set_dmac(dmac, port) {
 
 table forward_table {
     reads {
-        routing_metadata.nhop_ipv4 : exact;
+        routing_metadata.nhop_ipv4: exact;
     }
     actions {
         set_dmac;

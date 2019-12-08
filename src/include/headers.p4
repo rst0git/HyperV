@@ -20,14 +20,14 @@
  ***************************************************/
 header_type description_hdr_t {
 	fields {
-		flag		: 8 ;
-		len         : 8 ;
-		vdp_id      : 16;
-		load_header : * ;
+		flag: 8 ;
+		len: 8 ;
+		vdp_id: 16;
+		load_header: * ;
 	}
 
-	length : len;
-	max_length : 128;
+	length: len;
+	max_length: 128;
 }
 
 header description_hdr_t desc_hdr;
@@ -39,7 +39,7 @@ header description_hdr_t desc_hdr;
  ***************************************************/
 header_type byte_stack_t {
 	fields {
-		byte : 8;
+		byte: 8;
 	}
 }
 

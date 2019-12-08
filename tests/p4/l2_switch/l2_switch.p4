@@ -1,8 +1,8 @@
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
@@ -23,10 +23,10 @@ action forward(port) {
 
 table dmac {
     reads {
-        ethernet.dstAddr : exact;
+        ethernet.dstAddr: exact;
     }
     actions {forward;}
-    size : 512;
+    size: 512;
 }
 
 control ingress{

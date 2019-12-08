@@ -21,7 +21,4 @@
 // Number of global registers
 #define REGISTER_NUMBER 65536
 
-
-
-
 #endif

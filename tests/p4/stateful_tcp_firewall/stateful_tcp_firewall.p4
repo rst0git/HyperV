@@ -1,41 +1,41 @@
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
 header_type ipv4_t {
     fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
+        version: 4;
+        ihl: 4;
+        diffserv: 8;
+        totalLen: 16;
+        identification: 16;
+        flags: 3;
+        fragOffset: 13;
+        ttl: 8;
+        protocol: 8;
+        hdrChecksum: 16;
+        srcAddr: 32;
         dstAddr: 32;
     }
 }
 
 header_type tcp_t {
     fields {
-        srcPort : 16;
-        dstPort : 16;
-        seqNo : 32;
-        ackNo : 32;
-        dataOffset : 4;
-        res : 3;
-        ecn : 3;
-        ctrl : 6;
-        window : 16;
-        checksum : 16;
-        urgentPtr : 16;
+        srcPort: 16;
+        dstPort: 16;
+        seqNo: 32;
+        ackNo: 32;
+        dataOffset: 4;
+        res: 3;
+        ecn: 3;
+        ctrl: 6;
+        window: 16;
+        checksum: 16;
+        urgentPtr: 16;
     }
 }
 
@@ -55,7 +55,7 @@ parser start {
 parser parse_ethernet {
     extract(ethernet);
     return select(latest.etherType) {
-        ETHERTYPE_IPV4 : parse_ipv4;                      
+        ETHERTYPE_IPV4: parse_ipv4;                      
         default: ingress;
     }
 }
@@ -63,7 +63,7 @@ parser parse_ethernet {
 parser parse_ipv4 {
     extract(ipv4);
     return select(latest.protocol) {
-        IP_PROTOCOLS_TCP : parse_tcp;
+        IP_PROTOCOLS_TCP: parse_tcp;
         default: ingress;
     }
 }
@@ -75,15 +75,15 @@ parser parse_tcp {
 
 header_type state_metadata_t {
     fields {
-        cur_state   : 8;
-        next_state  : 8;
-        trigger     : 16;   
+        cur_state: 8;
+        next_state: 8;
+        trigger: 16;   
     }
 }
 
 register state_register {
-   width : 8;
-   instance_count : 1024;
+   width: 8;
+   instance_count: 1024;
 }
 
 action alert() {
@@ -106,7 +106,7 @@ action state_transfer(next_state, register_id) {
 
 table forward_table {
     reads {
-        standard_metadata.ingress_port : exact;
+        standard_metadata.ingress_port: exact;
     }
     actions {
         forward;
@@ -115,10 +115,10 @@ table forward_table {
 
 table state_table {
     reads {
-        ipv4.dstAddr : exact;
-        ipv4.srcAddr : exact;
-        tcp.srcPort  : exact;
-        tcp.dstPort  : exact;
+        ipv4.dstAddr: exact;
+        ipv4.srcAddr: exact;
+        tcp.srcPort: exact;
+        tcp.dstPort: exact;
     }
     actions {
         get_state_with_tcp_flag;
@@ -127,8 +127,8 @@ table state_table {
 
 table state_transfer_table {
     reads {
-        state_metadata.cur_state : exact;
-        state_metadata.trigger   : exact;
+        state_metadata.cur_state: exact;
+        state_metadata.trigger: exact;
     }
     actions {
         state_transfer;
@@ -141,7 +141,7 @@ action noop() {
 
 table action_table {
     reads {
-        state_metadata.next_state : exact;
+        state_metadata.next_state: exact;
     }
     actions {
         noop;

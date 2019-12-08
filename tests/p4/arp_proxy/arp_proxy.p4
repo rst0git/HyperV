@@ -1,22 +1,22 @@
 header_type ethernet_t {
   fields {
-    dest : 48;
-    src : 48;
-    etherType : 16;
+    dest: 48;
+    src: 48;
+    etherType: 16;
   }
 }
 
 header_type arp_t {
   fields {
-    hw_type : 16;
-    prot_type : 16;
-    hw_size : 8;
-    prot_size : 8;
-    opcode : 16;
-    sender_MAC : 48;
-    sender_IP : 32;
-    target_MAC : 48;
-    target_IP : 32;
+    hw_type: 16;
+    prot_type: 16;
+    hw_size: 8;
+    prot_size: 8;
+    opcode: 16;
+    sender_MAC: 48;
+    sender_IP: 32;
+    target_MAC: 48;
+    target_IP: 32;
   } 
 }
 
@@ -26,8 +26,8 @@ header arp_t arp;
 parser start {
   extract(ethernet);
   return select(ethernet.etherType) {
-    0x0806 : parse_arp;
-    default : ingress;
+    0x0806: parse_arp;
+    default: ingress;
   }
 }
 
@@ -42,7 +42,7 @@ action a_init_meta_egress(port) {
 
 table init_meta_egress {
   reads {
-    standard_metadata.ingress_port : exact;
+    standard_metadata.ingress_port: exact;
   }
   actions {
     a_init_meta_egress;
@@ -54,7 +54,7 @@ action arp_present() {
 
 table check_arp {
   reads {
-    arp : valid;
+    arp: valid;
   }
   actions {
     arp_present;
@@ -67,7 +67,7 @@ action arp_request() {
 
 table check_opcode {
   reads {
-    arp.opcode : exact;
+    arp.opcode: exact;
   }
   actions {
     arp_request;
@@ -90,7 +90,7 @@ action arp_reply(IP, MAC) {
 
 table handle_arp_request {
   reads {
-    arp.target_IP : exact;
+    arp.target_IP: exact;
   }
   actions {
     arp_reply;

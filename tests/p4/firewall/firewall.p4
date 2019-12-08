@@ -1,49 +1,49 @@
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
 header_type ipv4_t {
     fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
+        version: 4;
+        ihl: 4;
+        diffserv: 8;
+        totalLen: 16;
+        identification: 16;
+        flags: 3;
+        fragOffset: 13;
+        ttl: 8;
+        protocol: 8;
+        hdrChecksum: 16;
+        srcAddr: 32;
         dstAddr: 32;
     }
 }
 
 header_type tcp_t {
     fields {
-        srcPort : 16;
-        dstPort : 16;
-        seqNo : 32;
-        ackNo : 32;
-        dataOffset : 4;
-        res : 3;
-        ecn : 3;
-        ctrl : 6;
-        window : 16;
-        checksum : 16;
-        urgentPtr : 16;
+        srcPort: 16;
+        dstPort: 16;
+        seqNo: 32;
+        ackNo: 32;
+        dataOffset: 4;
+        res: 3;
+        ecn: 3;
+        ctrl: 6;
+        window: 16;
+        checksum: 16;
+        urgentPtr: 16;
     }
 }
 
 header_type udp_t {
     fields {
-        srcPort : 16;
-        dstPort : 16;
-        len     : 16;
+        srcPort: 16;
+        dstPort: 16;
+        len: 16;
         checksum: 16;
     }
 }
@@ -59,17 +59,17 @@ header udp_t  udp;
 parser start {
     extract(ethernet);
     return select(ethernet.etherType) {
-        ETHERTYPE_IPv4 : ipv4_parser;
-        default : ingress;
+        ETHERTYPE_IPv4: ipv4_parser;
+        default: ingress;
     }
 }
 
 parser ipv4_parser {
     extract(ipv4);
     return select(ipv4.protocol) {
-        IPPROTCOL_TCP : tcp_parser;
-        IPPROTCOL_UDP : udp_parser;
-        default : ingress;
+        IPPROTCOL_TCP: tcp_parser;
+        IPPROTCOL_UDP: udp_parser;
+        default: ingress;
     }
 }
 
@@ -96,10 +96,10 @@ action forward(port) {
 
 table firewall_with_tcp {
     reads {
-        ipv4.srcAddr : ternary;
-        ipv4.dstAddr : ternary;
-        tcp.srcPort  : ternary;
-        tcp.dstPort  : ternary;
+        ipv4.srcAddr: ternary;
+        ipv4.dstAddr: ternary;
+        tcp.srcPort: ternary;
+        tcp.dstPort: ternary;
     }
     actions {
         block;
@@ -109,10 +109,10 @@ table firewall_with_tcp {
 
 table firewall_with_udp {
     reads {
-        ipv4.srcAddr : ternary;
-        ipv4.dstAddr : ternary;
-        udp.srcPort  : ternary;
-        udp.dstPort  : ternary;
+        ipv4.srcAddr: ternary;
+        ipv4.dstAddr: ternary;
+        udp.srcPort: ternary;
+        udp.dstPort: ternary;
     }
     actions {
         block;
@@ -122,7 +122,7 @@ table firewall_with_udp {
 
 table forward_table {
     reads {
-        standard_metadata.ingress_port : exact;
+        standard_metadata.ingress_port: exact;
     }
     actions {
         forward;

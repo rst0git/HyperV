@@ -18,6 +18,6 @@
  * Reserved for user programs
  ***************************************************/
 register global_register {
-    width : REGISTER_WIDTH;
-    instance_count : REGISTER_NUMBER;
+	width: REGISTER_WIDTH;
+	instance_count: REGISTER_NUMBER;
 }

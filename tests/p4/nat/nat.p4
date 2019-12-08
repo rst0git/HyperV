@@ -2,25 +2,25 @@
 
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
 header_type ipv4_t {
     fields {
-        version : 4;
-        ihl : 4;
-        diffserv : 8;
-        totalLen : 16;
-        identification : 16;
-        flags : 3;
-        fragOffset : 13;
-        ttl : 8;
-        protocol : 8;
-        hdrChecksum : 16;
-        srcAddr : 32;
+        version: 4;
+        ihl: 4;
+        diffserv: 8;
+        totalLen: 16;
+        identification: 16;
+        flags: 3;
+        fragOffset: 13;
+        ttl: 8;
+        protocol: 8;
+        hdrChecksum: 16;
+        srcAddr: 32;
         dstAddr: 32;
     }
 }
@@ -28,8 +28,8 @@ header_type ipv4_t {
 parser start {
     extract(ethernet);
     return select(ethernet.etherType) {
-        ETHERTYPE_IPV4 : parse_ipv4;
-        default : ingress;
+        ETHERTYPE_IPV4: parse_ipv4;
+        default: ingress;
     }
 }
 
@@ -55,8 +55,8 @@ field_list_calculation ipv4_checksum {
     input {
         ipv4_checksum_list;
     }
-    algorithm : csum16;
-    output_width : 16;
+    algorithm: csum16;
+    output_width: 16;
 }
 
 calculated_field ipv4.hdrChecksum  {
@@ -75,7 +75,7 @@ action _drop() {
 
 header_type meta_t {
     fields {
-        nhop_ipv4 : 32;
+        nhop_ipv4: 32;
     }
 }
 
@@ -91,8 +91,8 @@ action nat_input(dstAddr, mask1) {
 
 table nat {
     reads {
-        ipv4.srcAddr : ternary;
-        ipv4.dstAddr : ternary;
+        ipv4.srcAddr: ternary;
+        ipv4.dstAddr: ternary;
     }
     actions {
         nat_input;
@@ -107,7 +107,7 @@ action set_dmac(dmac, port) {
 
 table forward {
     reads {
-        ipv4.dstAddr : exact;
+        ipv4.dstAddr: exact;
     }
     actions {
         set_dmac;
