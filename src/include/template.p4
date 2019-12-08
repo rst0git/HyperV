@@ -148,7 +148,6 @@ table table_branch_1_##X {								\
 		set_next_stage; 							\
 		set_match_result;							\
 		set_action_id; 								\
-		set_next_stage;								\
 		end;									\
 	}										\
 }											\
@@ -161,7 +160,6 @@ table table_branch_2_##X {								\
 		set_next_stage;								\
 		set_match_result;							\
 		set_action_id; 								\
-		set_next_stage;								\
 		end;									\
 	}										\
 }											\
@@ -174,7 +172,6 @@ table table_branch_3_##X {								\
 		set_next_stage;								\
 		set_match_result;							\
 		set_action_id; 								\
-		set_next_stage;								\
 		end;									\
 	}										\
 }
